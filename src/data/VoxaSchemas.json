@@ -1,0 +1,30 @@
+[
+    {
+        "schemaName": "campaign",
+        "schemaId": "66ac7905697945097c2723a2"
+    },
+    {
+        "schemaName": "profiles",
+        "schemaId": "66960a7d28ace407cff4ec86"
+    },
+    {
+        "schemaName": "tasks",
+        "schemaId": "66ac7dd41a61a36f27e3b19c"
+    },
+    {
+        "schemaName": "channels",
+        "schemaId": "66912800de9b343a33b8b235"
+    },
+    {
+        "schemaName": "appUsage",
+        "schemaId": "6695462a28ace407cff4ec7f"
+    },
+    {
+        "schemaName": "audience",
+        "schemaId": "669544b428ace407cff4ec7e"
+    },
+    {
+        "schemaName": "workspace",
+        "schemaId": "6690ddbdde9b343a33b8b229"
+    }
+]
