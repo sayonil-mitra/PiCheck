@@ -8,6 +8,9 @@ const Navbar = () => {
         if (location.pathname === "/schemas") {
             setSelectedTab('Get Schema')
         }
+        if (location.pathname === "/create-schema") {
+            setSelectedTab('Create Schemas')
+        }
     })
 
     return (

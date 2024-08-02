@@ -20,7 +20,7 @@ const fetchSingleSchema = async (token, schemaId, setResult) => {
 
     setResult(JSON.stringify(response.data, null, 4));
   } catch (error) {
-    setResult(error?.response?.data?.errorObject?.errorMessage);
+    setResult(error?.response?.data?.errorMessage);
   }
 };
 
