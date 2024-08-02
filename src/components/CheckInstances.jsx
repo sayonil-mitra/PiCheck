@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import schemas from "../data/VoxaSchemas.json"
+import voxaSchemas from "../data/VoxaSchemas.json"
+import { AppContext } from '../contexts/context';
 
 const CheckInstances = () => {
     const token = import.meta.env.VITE_TOKEN_XPX;
     const [results, setResults] = useState({});
-    console.log(token)
-
+    const [schemasList, setSchemasList] = useState([])
+    const { selectedModule } = useContext(AppContext)
     const fetchData = async (schemaId) => {
         const url = `https://ig.gov-cloud.ai/tf-entity-ingestion/v1.0/schemas/${schemaId}/instances/list`;
 
@@ -24,17 +25,27 @@ const CheckInstances = () => {
                 [schemaId]: entitiesLength
             }));
         } catch (error) {
-            console.error('Error fetching data:', error);
             setResults((prevResults) => ({
                 ...prevResults,
-                [schemaId]: 'Error fetching data'
+                [schemaId]: error?.response?.data?.errorObject?.errorMessage
             }));
         }
     };
 
+    useEffect(() => {
+        switch (selectedModule) {
+            case "voxa":
+                setSchemasList(voxaSchemas)
+                break;
+            default:
+                setSchemasList([])
+                break;
+        }
+    }, [selectedModule])
+
     return (
         <div className="container mx-auto p-4">
-            {schemas.map((schema) => (
+            {schemasList.map((schema) => (
                 <div key={schema.schemaId} className="mb-4 p-4 border rounded">
                     <div className="flex justify-between items-center">
                         <div>
