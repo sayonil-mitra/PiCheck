@@ -7,6 +7,7 @@ const CreateSchema = () => {
     const [universe, setUniverse] = useState('');
     const [attributes, setAttributes] = useState([{ name: '', nestedName: '', type: 'string', required: false, primaryKey: false }]);
     const [result, setResult] = useState({});
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleAddAttribute = () => {
         setAttributes([...attributes, { name: '', nestedName: '', type: 'string', required: false, primaryKey: false }]);
@@ -25,7 +26,13 @@ const CreateSchema = () => {
     const handlePrimaryKeyChange = (index, isPrimaryKey) => {
         const newAttributes = attributes.map((attr, i) => {
             if (i === index) {
-                return { ...attr, primaryKey: isPrimaryKey, required: isPrimaryKey };
+                if (attr.type === 'json') {
+                    setErrorMessage('Attributes of type "json" cannot be set as primary key. Please change type.');
+                    return attr;
+                } else {
+                    setErrorMessage('');
+                    return { ...attr, primaryKey: isPrimaryKey, required: isPrimaryKey };
+                }
             }
             return attr;
         });
@@ -49,6 +56,7 @@ const CreateSchema = () => {
         <div className="p-6 bg-gray-100 rounded-lg">
             {result && result?.statusCode < 300 && <div className="mb-4 p-2 bg-green-300 text-green-600 rounded">{result?.statusText}</div>}
             {result && result?.statusCode >= 400 && <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">{result?.statusText}</div>}
+            {errorMessage && <div className="mb-4 p-2 bg-yellow-100 text-yellow-700 rounded">{errorMessage}</div>}
 
             <form onSubmit={handleSubmit}>
                 <div className="mb-4 p-4 bg-white border border-gray-300 rounded flex justify-between space-x-4">
@@ -129,7 +137,6 @@ const CreateSchema = () => {
                             <label className="text-gray-700 font-bold">Primary Key</label>
                         </div>
                     </div>
-
                 ))}
                 <button
                     type="button"
