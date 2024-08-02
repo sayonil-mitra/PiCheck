@@ -9,7 +9,7 @@ const Navbar = () => {
                 <div className="flex justify-center items-center h-16">
                     <div className="flex space-x-8">
                         <a
-                            href="#"
+                            href="/"
                             onClick={() => setSelectedTab('Get Instances')}
                             className={`${selectedTab === 'Get Instances' ? 'text-yellow-500' : 'text-white'
                                 } hover:text-gray-300`}
@@ -17,7 +17,7 @@ const Navbar = () => {
                             Get Instances
                         </a>
                         <a
-                            href="#"
+                            href="/schemas"
                             onClick={() => setSelectedTab('Get Schema')}
                             className={`${selectedTab === 'Get Schema' ? 'text-yellow-500' : 'text-white'
                                 } hover:text-gray-300`}
@@ -25,7 +25,7 @@ const Navbar = () => {
                             Get Schema
                         </a>
                         <a
-                            href="#"
+                            href="/create-schema"
                             onClick={() => setSelectedTab('Create Schemas')}
                             className={`${selectedTab === 'Create Schemas' ? 'text-yellow-500' : 'text-white'
                                 } hover:text-gray-300`}

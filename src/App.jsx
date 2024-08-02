@@ -14,7 +14,8 @@ function App() {
             <ModulePicker />
             <Router>
                 <Routes>
-                    <Route path='/' element={<CheckInstances />} />
+                    <Route path='/' element={<CheckInstances type='instances' />} />
+                    <Route path='/schemas' element={<CheckInstances type='schemas' />} />
                 </Routes>
             </Router>
 

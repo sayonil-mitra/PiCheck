@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const fetchInstancesSingleSchemas = async (token, schemaId, setResult) => {
+const fetchSingleSchema = async (token, schemaId, setResult) => {
   const url = `${
     import.meta.env.VITE_DOMAIN
-  }/tf-entity-ingestion/v1.0/schemas/${schemaId}/instances/list`;
+  }/pi-entity-service/v1.0/schemas/${schemaId}`;
 
   if (schemaId === "") {
     setResult("Schema ID can't be empty!!!");
@@ -18,17 +18,16 @@ const fetchInstancesSingleSchemas = async (token, schemaId, setResult) => {
       },
     });
 
-    const entitiesLength = response.data.entities.length;
-    setResult(entitiesLength);
+    setResult(JSON.stringify(response.data, null, 4));
   } catch (error) {
     setResult(error?.response?.data?.errorObject?.errorMessage);
   }
 };
 
-const fetchInstancesMultipleSchemas = async (token, schemaId, setResults) => {
+const fetchMultipleSchemas = async (token, schemaId, setResults) => {
   const url = `${
     import.meta.env.VITE_DOMAIN
-  }/tf-entity-ingestion/v1.0/schemas/${schemaId}/instances/list`;
+  }/pi-entity-service/v1.0/schemas/${schemaId}`;
 
   try {
     const response = await axios.get(url, {
@@ -38,10 +37,9 @@ const fetchInstancesMultipleSchemas = async (token, schemaId, setResults) => {
       },
     });
 
-    const entitiesLength = response.data.entities.length;
     setResults((prevResults) => ({
       ...prevResults,
-      [schemaId]: entitiesLength,
+      [schemaId]: JSON.stringify(response.data, null, 4),
     }));
   } catch (error) {
     setResults((prevResults) => ({
@@ -51,4 +49,4 @@ const fetchInstancesMultipleSchemas = async (token, schemaId, setResults) => {
   }
 };
 
-export { fetchInstancesMultipleSchemas, fetchInstancesSingleSchemas };
+export { fetchSingleSchema, fetchMultipleSchemas };

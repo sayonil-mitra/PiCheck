@@ -2,14 +2,33 @@ import React, { useContext, useEffect, useState } from 'react';
 import voxaSchemas from "../data/VoxaSchemas.json"
 import { AppContext } from '../contexts/context';
 import { fetchInstancesMultipleSchemas, fetchInstancesSingleSchemas } from '../utils/fetchInstances';
+import { fetchSingleSchema, fetchMultipleSchemas } from '../utils/fetchSchema';
 
-const CheckInstances = () => {
+const CheckInstances = ({ type = "instances" }) => {
     const token = import.meta.env.VITE_TOKEN_XPX;
     const [results, setResults] = useState({});
     const [schemasList, setSchemasList] = useState([])
     const { selectedModule } = useContext(AppContext)
     const [schemaIdInput, setSchemaId] = useState('')
     const [schemaIdOutput, setOutput] = useState('')
+
+    function handleCustomUserInput() {
+        if (type === "instances") {
+            fetchInstancesSingleSchemas(token, schemaIdInput, setOutput)
+        }
+        if (type === "schemas") {
+            fetchSingleSchema(token, schemaIdInput, setOutput)
+        }
+    }
+
+    function handleListUserInput(schemaId) {
+        if (type === "instances") {
+            fetchInstancesMultipleSchemas(token, schemaId, setResults)
+        }
+        if (type === "schemas") {
+            fetchMultipleSchemas(token, schemaId, setResults)
+        }
+    }
 
     useEffect(() => {
         switch (selectedModule) {
@@ -38,7 +57,7 @@ const CheckInstances = () => {
                     </div>
                     <button
                         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-                        onClick={() => fetchInstancesSingleSchemas(token, schemaIdInput, setOutput)}
+                        onClick={handleCustomUserInput}
                     >
                         Fetch Data
                     </button>
@@ -56,13 +75,15 @@ const CheckInstances = () => {
                         </div>
                         <button
                             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-                            onClick={() => fetchInstancesMultipleSchemas(token, schema.schemaId, setResults)}
+                            onClick={() => handleListUserInput(schema.schemaId)}
                         >
                             Fetch Data
                         </button>
                     </div>
                     <div className="mt-2">
-                        Result: {results[schema.schemaId] !== undefined ? results[schema.schemaId] : 'No data'}
+                        Result:
+                        {type === "instances" && (results[schema.schemaId] !== undefined ? results[schema.schemaId] : 'No data')}
+                        {type === "schemas" && (results[schema.schemaId] !== undefined ? <pre>{results[schema.schemaId]}</pre> : 'No data')}
                     </div>
                 </div>
             ))}
