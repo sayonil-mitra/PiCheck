@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Navbar = () => {
     const [selectedTab, setSelectedTab] = useState('Get Instances');
+
+    useEffect(() => {
+        console.log(location.pathname)
+        if (location.pathname === "/schemas") {
+            setSelectedTab('Get Schema')
+        }
+    })
 
     return (
         <nav className="bg-gray-800 w-full">

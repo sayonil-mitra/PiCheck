@@ -63,7 +63,8 @@ const CheckInstances = ({ type = "instances" }) => {
                     </button>
                 </div>
                 <div className="mt-2">
-                    Result: {schemaIdOutput}
+                    {type === "instances" && (schemaIdOutput !== undefined ? schemaIdOutput : 'No data')}
+                    {type === "schemas" && (schemaIdOutput !== undefined ? <pre>{schemaIdOutput}</pre> : 'No data')}
                 </div>
             </div>
             {schemasList.map((schema) => (
