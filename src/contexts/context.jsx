@@ -5,7 +5,7 @@ export const AppContext = createContext()
 export default function AppContextProvider({ children }) {
 
     // xpx modules selector
-    const [selectedModule, setModule] = useState("")
+    const [selectedModule, setModule] = useState("voxa")
     const xpxModulesList = [
         "voxa",
         "marco",

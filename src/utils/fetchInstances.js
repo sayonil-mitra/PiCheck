@@ -1,6 +1,30 @@
-const fetchData = async (schemaId) => {
+import axios from "axios";
+
+const fetchInstancesSingleSchemas = async (token, schemaId, setResult) => {
   const url = `https://ig.gov-cloud.ai/tf-entity-ingestion/v1.0/schemas/${schemaId}/instances/list`;
-  const token = "YOUR_TOKEN_HERE"; // Replace with your actual token
+
+  if (schemaId === "") {
+    setResult("Schema ID can't be empty!!!");
+    return;
+  }
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const entitiesLength = response.data.entities.length;
+    setResult(entitiesLength);
+  } catch (error) {
+    setResult(error?.response?.data?.errorObject?.errorMessage);
+  }
+};
+
+const fetchInstancesMultipleSchemas = async (token, schemaId, setResults) => {
+  const url = `https://ig.gov-cloud.ai/tf-entity-ingestion/v1.0/schemas/${schemaId}/instances/list`;
 
   try {
     const response = await axios.get(url, {
@@ -16,12 +40,11 @@ const fetchData = async (schemaId) => {
       [schemaId]: entitiesLength,
     }));
   } catch (error) {
-    console.error("Error fetching data:", error);
     setResults((prevResults) => ({
       ...prevResults,
-      [schemaId]: "Error fetching data",
+      [schemaId]: error?.response?.data?.errorObject?.errorMessage,
     }));
   }
 };
 
-export default fetchData;
+export { fetchInstancesMultipleSchemas, fetchInstancesSingleSchemas };
