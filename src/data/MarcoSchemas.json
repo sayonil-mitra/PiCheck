@@ -1,0 +1,27 @@
+[
+    {
+        "schemaName": "WorkSpace Research Datasets",
+        "schemaId": "66ac82a21a61a36f27e3b19f"
+    }, {
+        "schemaName": "Combine Dataset Configuration",
+        "schemaId": "66ac845f697945097c2723a5"
+    }, {
+        "schemaName": "Query Schema",
+        "schemaId": "66ac852c1a61a36f27e3b1a0"
+    }, {
+        "schemaName": "TAM Segments Schema",
+        "schemaId": "66ac85f81a61a36f27e3b1a1"
+    }, {
+        "schemaName": "Business Modal Schema",
+        "schemaId": "66ac86eb697945097c2723a6"
+    }, {
+        "schemaName": "Business Plan Schema",
+        "schemaId": "66ac884d697945097c2723a7"
+    }, {
+        "schemaName": "Business Proposal Schema",
+        "schemaId": "66ac8a341a61a36f27e3b1a2"
+    }, {
+        "schemaName": "XPX Marco Graph DataSchema",
+        "schemaId": "66ac8ac6697945097c2723a9"
+    }
+]

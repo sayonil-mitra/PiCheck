@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import voxaSchemas from "../data/VoxaSchemas.json"
+import marcoSchema from "../data/MarcoSchemas.json"
 import { AppContext } from '../contexts/context';
 import { fetchInstancesMultipleSchemas, fetchInstancesSingleSchemas } from '../utils/fetchInstances';
 import { fetchSingleSchema, fetchMultipleSchemas } from '../utils/fetchSchema';
@@ -34,6 +35,9 @@ const CheckInstances = ({ type = "instances" }) => {
         switch (selectedModule) {
             case "voxa":
                 setSchemasList(voxaSchemas)
+                break;
+            case "marco":
+                setSchemasList(marcoSchema)
                 break;
             default:
                 setSchemasList([])
